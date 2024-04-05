@@ -20,3 +20,19 @@ php artisan make:controller ProductController -r
 ```
 php artisan make:request ProductRequest
 ```
+5.  Сгенерировал миграцию для хранения задач
+```
+php artisan queue:table
+```
+Сгенерировал задчу на отпраку почты
+```
+php artisan make:job SendEmailJob
+```
+Сгенерировал уведомление о создании продукта
+```
+php artisan make:notification CreateProduct
+```
+Запуск обработчика очереди
+```
+php artisan queue:work
+```

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Jobs\SendEmailJob;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -39,6 +40,7 @@ class ProductController extends Controller
             'properties' => ['color' => $request->color, 'size' => $request->size],
         ]);
         $product->save();
+        SendEmailJob::dispatch($product);
         return redirect()->route('products.index')->with('status', 'Ваш продукт успешно создан!');
     }
 
