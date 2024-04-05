@@ -1,0 +1,43 @@
+
+services:
+    php82cli:
+        build: ./
+        container_name: laravel-php82cli-bookworm
+        restart: always
+        ports:
+            - 8080:8000
+            - 8050:5173 #package.json "scripts": {"dev": "vite --host"}
+        links:
+            - database
+        volumes:
+            - ./:/var/www/html
+        tty: true
+        # php -S php82cli:8000 -t public
+        # php artisan serve --host php82cli
+    database:
+        image: postgres:15.4-bullseye
+        container_name: postgres-bullseye
+        restart: always
+        environment:
+            POSTGRES_USER: pgadmin
+            POSTGRES_PASSWORD: pgadmin
+            POSTGRES_DB: laravel
+    pgadmin:
+        image: dpage/pgadmin4:7.6
+        container_name: pgadmin
+        restart: always
+        links:
+            - database
+        ports:
+            - 8084:80
+        environment:
+            PGADMIN_DEFAULT_EMAIL: pgadmin@mail.loc
+            PGADMIN_DEFAULT_PASSWORD: pgadmin
+    mailpit:
+        image: axllent/mailpit
+        container_name: mailpit
+        restart: always
+        ports:
+            - 1025:1025 # smtp server
+            - 8025:8025 # web ui
+
