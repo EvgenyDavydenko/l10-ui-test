@@ -16,3 +16,7 @@ php artisan make:model Product -mf
 php artisan migrate --seed
 php artisan make:controller ProductController -r
 ```
+4.  Реализация методов взаимодействия с сущностью `Product`. Проверка на Админа. Валидация на создание и редактирование продукта
+```
+php artisan make:request ProductRequest
+```

@@ -8,6 +8,15 @@
                 <div class="card-header">{{ __('Продукты') }}</div>
 
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -20,7 +29,7 @@
                             <th>НАЗВАНИЕ</th>
                             <th>СТАТУС</th>
                             <th>АТРИБУТЫ</th>
-                            <th><a class="btn btn-success bg-lucky px-4" href="#">Добавить</a></th>
+                            <th><a class="btn btn-success bg-lucky px-4" href="{{ route('products.create') }}">Добавить</a></th>
                         </tr>
                         @foreach ($products as $product)
                             <tr>
@@ -42,11 +51,11 @@
                                 </td>
                                 
                                 <td>
-                                    <a class="btn btn-warning bg-lucky px-3" href="#">
+                                    <a class="btn btn-warning bg-lucky px-3" href="{{ route('products.show', ['id'=>$product->id]) }}">
                                         <i class="fas fa-eye"></i> View
                                     </a>
-                                    <a class="btn btn-warning" href="#">Edit</a>
-                                    <form action="#" method="POST">
+                                    <a class="btn btn-warning" href="{{ route('products.edit', ['id'=>$product->id]) }}">Edit</a>
+                                    <form action="{{ route('products.destroy', ['id'=>$product->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
