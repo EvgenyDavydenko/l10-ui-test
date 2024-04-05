@@ -10,3 +10,9 @@ composer require laravel/ui
 php artisan ui bootstrap --auth
 npm install && npm run dev
 ```
+3.  Создание модели, миграции для таблицы, фабрики для наполнения данными и ресурсного контроллера для сущности `Product`
+```
+php artisan make:model Product -mf
+php artisan migrate --seed
+php artisan make:controller ProductController -r
+```
